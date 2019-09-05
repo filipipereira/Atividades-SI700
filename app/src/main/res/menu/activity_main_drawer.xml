@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/autores"
+            android:title="Autores" />
+        <item
+            android:id="@+id/alunos"
+            android:title="Alunos" />
+        <item
+            android:id="@+id/biografias"
+            android:title="Biografias" />
+    </group>
+
+    <item android:title="Jogos">
+        <menu>
+            <item
+                android:id="@+id/jogo1"
+                android:title="Jogo1" />
+            <item
+                android:id="@+id/jogo2"
+                android:title="Jogo2" />
+        </menu>
+    </item>
+
+</menu>
