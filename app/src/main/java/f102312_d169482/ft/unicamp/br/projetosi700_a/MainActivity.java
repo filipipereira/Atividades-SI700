@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,12 +16,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import f102312_d169482.ft.unicamp.br.projetosi700_a.alunos.AlunosFragment;
 
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     FragmentManager fragmentManager;
+    RecyclerView mRecyclerView;
+    MyFirstAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,15 +52,15 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         if(savedInstanceState==null){
             fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             MyFirstFragment f1 = new MyFirstFragment();
-            fragmentTransaction.add(R.id.frame, f1,"frag");
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.frame, f1, "frag");
+            fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         }
     }
@@ -111,19 +117,19 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.autores) {
-            Fragment fragAutores = fragmentManager.findFragmentByTag("autores");
-            if(fragAutores == null){
-                fragAutores = new AutoresFragment();
+            Fragment fragAlunos = fragmentManager.findFragmentByTag("alunos");
+            if(fragAlunos == null){
+                fragAlunos = new AlunosFragment();
             }
-            replaceFragment(fragAutores,"autores");
+            replaceFragment(fragAlunos,"autores");
         } else if (id == R.id.alunos) {
-
+            Toast.makeText(this, "Alunos", Toast.LENGTH_LONG).show();
         } else if (id == R.id.biografias) {
-
+            Toast.makeText(this, "Biografias", Toast.LENGTH_LONG).show();
         } else if (id == R.id.jogo1) {
-
+            Toast.makeText(this, "Jogo1", Toast.LENGTH_LONG).show();
         } else if (id == R.id.jogo2) {
-
+            Toast.makeText(this, "Jogo2", Toast.LENGTH_LONG).show();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
