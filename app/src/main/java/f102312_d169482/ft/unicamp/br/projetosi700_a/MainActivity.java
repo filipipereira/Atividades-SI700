@@ -147,7 +147,14 @@ public class MainActivity extends AppCompatActivity
             Toast.makeText(this, "Alunos", Toast.LENGTH_LONG).show();
 
         } else if (id == R.id.biografias) {
+
+            Fragment fragBiografias = fragmentManager.findFragmentByTag("biografias");
+            if(fragBiografias == null){
+                fragBiografias = new BiografiasFragment();
+            }
+            replaceFragment(fragBiografias,"biografias");
             Toast.makeText(this, "Biografias", Toast.LENGTH_LONG).show();
+            
         } else if (id == R.id.jogo1) {
             Toast.makeText(this, "Jogo1", Toast.LENGTH_LONG).show();
         } else if (id == R.id.jogo2) {
