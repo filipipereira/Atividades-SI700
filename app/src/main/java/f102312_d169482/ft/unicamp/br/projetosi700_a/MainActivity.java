@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import f102312_d169482.ft.unicamp.br.projetosi700_a.alunos.AlunosFragment;
+import f102312_d169482.ft.unicamp.br.projetosi700_a.interfaces.OnBiografiaRequest;
 
 
 public class MainActivity extends AppCompatActivity
@@ -117,13 +118,34 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.autores) {
+            Fragment fragAutores = fragmentManager.findFragmentByTag("autores");
+            if(fragAutores == null){
+                fragAutores = new AutoresFragment();
+            }
+            replaceFragment(fragAutores,"autores");
+
+        } else if (id == R.id.alunos) {
             Fragment fragAlunos = fragmentManager.findFragmentByTag("alunos");
             if(fragAlunos == null){
                 fragAlunos = new AlunosFragment();
+
+                ((AlunosFragment) fragAlunos).setOnBiografiaRequest(
+                        new OnBiografiaRequest() {
+                            @Override
+                            public void onRequest(int position) {
+                                Fragment fragBiografias = fragmentManager.findFragmentByTag("biografias");
+                                if(fragBiografias == null){
+                                    fragBiografias = new BiografiasFragment();
+                                    ((BiografiasFragment) fragBiografias).setIndex(position);
+                                }
+                                replaceFragment(fragBiografias,"biografias");
+                            }
+                        }
+                );
             }
-            replaceFragment(fragAlunos,"autores");
-        } else if (id == R.id.alunos) {
+            replaceFragment(fragAlunos,"alunos");
             Toast.makeText(this, "Alunos", Toast.LENGTH_LONG).show();
+
         } else if (id == R.id.biografias) {
             Toast.makeText(this, "Biografias", Toast.LENGTH_LONG).show();
         } else if (id == R.id.jogo1) {
