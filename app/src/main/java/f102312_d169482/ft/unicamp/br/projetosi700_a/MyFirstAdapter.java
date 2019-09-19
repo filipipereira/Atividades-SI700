@@ -17,7 +17,7 @@ public class MyFirstAdapter extends RecyclerView.Adapter{
 
     private ArrayList<Aluno> alunos;
     MyOnItemClickListener itemClickListener;
-
+    MyOnLongItemClickListener myOnLongItemClickListener;
 
     public MyFirstAdapter(ArrayList<Aluno> alunos) {
         this.alunos = alunos;
@@ -71,8 +71,7 @@ public class MyFirstAdapter extends RecyclerView.Adapter{
         viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                alunos.remove(position);
-                notifyDataSetChanged();
+                myOnLongItemClickListener.myOnLongItemClick(position);
                 return true;
             }
         });
@@ -92,5 +91,12 @@ public class MyFirstAdapter extends RecyclerView.Adapter{
         this.itemClickListener = itemClickListener;
     }
 
+    public interface MyOnLongItemClickListener{
+         void myOnLongItemClick(int position);
+    }
+
+    public void setItemLongClickListener(MyOnLongItemClickListener myOnLongItemClickListener) {
+        this.myOnLongItemClickListener = myOnLongItemClickListener;
+    }
 
 }

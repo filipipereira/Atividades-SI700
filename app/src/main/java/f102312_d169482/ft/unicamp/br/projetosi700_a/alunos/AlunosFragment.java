@@ -14,7 +14,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import f102312_d169482.ft.unicamp.br.projetosi700_a.MyFirstAdapter;
+import f102312_d169482.ft.unicamp.br.projetosi700_a.MyFirstAdapter.MyOnLongItemClickListener;
 import f102312_d169482.ft.unicamp.br.projetosi700_a.R;
+import f102312_d169482.ft.unicamp.br.projetosi700_a.interfaces.OnBiografiaRequest;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,11 +25,15 @@ public class AlunosFragment extends Fragment {
 
     RecyclerView mRecyclerView;
     MyFirstAdapter mAdapter;
+    private OnBiografiaRequest onBiografiaRequest;
 
     public AlunosFragment() {
         // Required empty public constructor
     }
 
+    public void setOnBiografiaRequest(OnBiografiaRequest onBiografiaRequest) {
+        this.onBiografiaRequest = onBiografiaRequest;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,6 +53,15 @@ public class AlunosFragment extends Fragment {
             public void MyOnItemClick(String nome) {
                 Toast toast = Toast.makeText(getContext(), nome, Toast.LENGTH_SHORT);
                 toast.show();
+            }
+        });
+
+        mAdapter.setItemLongClickListener(new MyOnLongItemClickListener() {
+            @Override
+            public void myOnLongItemClick(int position) {
+                if (onBiografiaRequest != null){
+                    onBiografiaRequest.onRequest(position);
+                }
             }
         });
 
