@@ -6,8 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 
@@ -21,6 +23,9 @@ public class PuzzleFragment extends Fragment {
 
     LinearLayout view;
     AbstractPuzzle abstractPuzzle;
+    Spinner spinner;
+    String[] boards = {"4x4", "6x4"};
+
 
     public PuzzleFragment() {
         // Required empty public constructor
@@ -34,6 +39,15 @@ public class PuzzleFragment extends Fragment {
         // Inflate the layout for this fragment
         if (view == null) {
             view = (LinearLayout) inflater.inflate(R.layout.fragment_puzzle, container, false);
+
+            spinner = (Spinner)view.findViewById(R.id.spinner_board);
+            ArrayAdapter<String> adapter;
+            adapter = new ArrayAdapter<String>(view.getContext(),
+                    android.R.layout.simple_spinner_item  ,boards);
+
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(adapter);
+
             startPuzzle(0, view);
         }
         return view;
@@ -43,8 +57,7 @@ public class PuzzleFragment extends Fragment {
         Board board = Boards.getPuzzle(puzzle);
         ArrayList<ImageView> imageViews = new ArrayList();
 
-
-        for(int i = 0; i < board.getNumLines(); i++){
+       for(int i = 0; i < board.getNumLines(); i++){
 
             LinearLayout row = new LinearLayout(getContext());
 
@@ -64,10 +77,13 @@ public class PuzzleFragment extends Fragment {
                         new LinearLayout.LayoutParams(
                                 board.getWidth(),
                                 board.getHeight()));
+
                 imageViews.add(imageView);
                 row.addView(imageView);
             }
+           view.addView(row,i);
         }
+
         abstractPuzzle = new EmptyPuzzle(board, imageViews);
     }
 }

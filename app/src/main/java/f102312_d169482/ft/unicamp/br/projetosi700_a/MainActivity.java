@@ -164,6 +164,7 @@ public class MainActivity extends AppCompatActivity
             }
             replaceFragment(fragJogo1,"jogo1");
             Toast.makeText(this, "Jogo1", Toast.LENGTH_LONG).show();
+
         } else if (id == R.id.jogo2) {
             Toast.makeText(this, "Jogo2", Toast.LENGTH_LONG).show();
         }
