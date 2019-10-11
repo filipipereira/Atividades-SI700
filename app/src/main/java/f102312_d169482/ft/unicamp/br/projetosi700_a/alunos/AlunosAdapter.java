@@ -1,4 +1,4 @@
-package f102312_d169482.ft.unicamp.br.projetosi700_a;
+package f102312_d169482.ft.unicamp.br.projetosi700_a.alunos;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -11,15 +11,16 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import f102312_d169482.ft.unicamp.br.projetosi700_a.R;
 import f102312_d169482.ft.unicamp.br.projetosi700_a.alunos.Aluno;
 
-public class MyFirstAdapter extends RecyclerView.Adapter{
+public class AlunosAdapter extends RecyclerView.Adapter{
 
     private ArrayList<Aluno> alunos;
     MyOnItemClickListener itemClickListener;
     MyOnLongItemClickListener myOnLongItemClickListener;
 
-    public MyFirstAdapter(ArrayList<Aluno> alunos) {
+    public AlunosAdapter(ArrayList<Aluno> alunos) {
         this.alunos = alunos;
     }
 
@@ -27,10 +28,8 @@ public class MyFirstAdapter extends RecyclerView.Adapter{
     public class MyFirstViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView imgFoto;
-        // private ImageView imgFoto;
         private TextView txtNome;
         private TextView txtDescricao;
-
 
         public MyFirstViewHolder(View itemView) {
             super(itemView);

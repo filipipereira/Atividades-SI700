@@ -18,8 +18,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import f102312_d169482.ft.unicamp.br.projetosi700_a.alunos.AlunosAdapter;
 import f102312_d169482.ft.unicamp.br.projetosi700_a.alunos.AlunosFragment;
 import f102312_d169482.ft.unicamp.br.projetosi700_a.interfaces.OnBiografiaRequest;
+import f102312_d169482.ft.unicamp.br.projetosi700_a.puzzle.PuzzleFragment;
 
 
 public class MainActivity extends AppCompatActivity
@@ -27,7 +29,7 @@ public class MainActivity extends AppCompatActivity
 
     FragmentManager fragmentManager;
     RecyclerView mRecyclerView;
-    MyFirstAdapter mAdapter;
+    AlunosAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,9 +156,16 @@ public class MainActivity extends AppCompatActivity
             }
             replaceFragment(fragBiografias,"biografias");
             Toast.makeText(this, "Biografias", Toast.LENGTH_LONG).show();
-            
+
         } else if (id == R.id.jogo1) {
+
+            Fragment fragJogo1 = fragmentManager.findFragmentByTag("jogo1");
+            if(fragJogo1 == null){
+                fragJogo1 = new PuzzleFragment();
+            }
+            replaceFragment(fragJogo1,"jogo1");
             Toast.makeText(this, "Jogo1", Toast.LENGTH_LONG).show();
+
         } else if (id == R.id.jogo2) {
             Toast.makeText(this, "Jogo2", Toast.LENGTH_LONG).show();
         }
