@@ -24,7 +24,7 @@ public class PuzzleFragment extends Fragment {
     LinearLayout view;
     AbstractPuzzle abstractPuzzle;
     Spinner spinner;
-    String[] boards = {"4x4", "6x4"};
+    String[] boards = {"Board 4x4", "Board 6x4"};
 
 
     public PuzzleFragment() {
@@ -48,7 +48,7 @@ public class PuzzleFragment extends Fragment {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinner.setAdapter(adapter);
 
-            startPuzzle(0, view);
+            startPuzzle(1, view);
         }
         return view;
     }
@@ -60,28 +60,20 @@ public class PuzzleFragment extends Fragment {
        for(int i = 0; i < board.getNumLines(); i++){
 
             LinearLayout row = new LinearLayout(getContext());
-
             row.setOrientation(LinearLayout.HORIZONTAL);
-            row.setLayoutParams(
-                    new LinearLayout.LayoutParams(
-                            ViewGroup.LayoutParams.WRAP_CONTENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT
-                    ));
+            //row.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
-            for(int j = 0; j < board.getNumColumns(); j++){
-                ImageView imageView = new ImageView(getContext());
-                imageView.setAdjustViewBounds(true);
-                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+           for(int j = 0; j < board.getNumColumns(); j++){
+               ImageView imageView = new ImageView(getContext());
+               imageView.setAdjustViewBounds(true);
+               imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+               imageView.setLayoutParams(new LinearLayout.LayoutParams(board.getWidth(), board.getHeight()));
 
-                imageView.setLayoutParams(
-                        new LinearLayout.LayoutParams(
-                                board.getWidth(),
-                                board.getHeight()));
-
-                imageViews.add(imageView);
-                row.addView(imageView);
-            }
-           view.addView(row,i);
+               imageView.setImageResource(R.drawable.agua);
+               imageViews.add(imageView);
+               row.addView(imageView);
+           }
+           view.addView(row);
         }
 
         abstractPuzzle = new EmptyPuzzle(board, imageViews);

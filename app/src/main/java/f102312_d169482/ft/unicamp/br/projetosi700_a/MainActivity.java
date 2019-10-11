@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import f102312_d169482.ft.unicamp.br.projetosi700_a.alunos.AlunosAdapter;
 import f102312_d169482.ft.unicamp.br.projetosi700_a.alunos.AlunosFragment;
 import f102312_d169482.ft.unicamp.br.projetosi700_a.interfaces.OnBiografiaRequest;
 import f102312_d169482.ft.unicamp.br.projetosi700_a.puzzle.PuzzleFragment;
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity
 
     FragmentManager fragmentManager;
     RecyclerView mRecyclerView;
-    MyFirstAdapter mAdapter;
+    AlunosAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

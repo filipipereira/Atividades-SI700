@@ -4,6 +4,8 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 
+import f102312_d169482.ft.unicamp.br.projetosi700_a.R;
+
 public abstract class AbstractPuzzle {
 
     private Board board;
@@ -24,7 +26,7 @@ public abstract class AbstractPuzzle {
     protected void redraw(){
         for(int i =0; i < board.getNumLines(); i++){
             for (int j=0; j < board.getNumColumns(); j++) {
-               imageviewlist.get(i * board.getNumColumns() + j).setImageResource(board.getGameBlock(i, j));
+               imageviewlist.get(i * board.getNumColumns() + j).setImageResource(R.drawable.agua);
             }
         }
     }

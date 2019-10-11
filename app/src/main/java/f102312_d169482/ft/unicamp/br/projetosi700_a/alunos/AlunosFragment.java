@@ -13,8 +13,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import f102312_d169482.ft.unicamp.br.projetosi700_a.MyFirstAdapter;
-import f102312_d169482.ft.unicamp.br.projetosi700_a.MyFirstAdapter.MyOnLongItemClickListener;
+import f102312_d169482.ft.unicamp.br.projetosi700_a.alunos.AlunosAdapter.MyOnLongItemClickListener;
 import f102312_d169482.ft.unicamp.br.projetosi700_a.R;
 import f102312_d169482.ft.unicamp.br.projetosi700_a.interfaces.OnBiografiaRequest;
 
@@ -24,7 +23,7 @@ import f102312_d169482.ft.unicamp.br.projetosi700_a.interfaces.OnBiografiaReques
 public class AlunosFragment extends Fragment {
 
     RecyclerView mRecyclerView;
-    MyFirstAdapter mAdapter;
+    AlunosAdapter mAdapter;
     private OnBiografiaRequest onBiografiaRequest;
 
     public AlunosFragment() {
@@ -44,11 +43,11 @@ public class AlunosFragment extends Fragment {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        mAdapter = new MyFirstAdapter(new ArrayList(Arrays.asList(Alunos.alunos)));
+        mAdapter = new AlunosAdapter(new ArrayList(Arrays.asList(Alunos.alunos)));
         mRecyclerView.setAdapter(mAdapter);
 
 
-        mAdapter.setItemClickListener(new MyFirstAdapter.MyOnItemClickListener() {
+        mAdapter.setItemClickListener(new AlunosAdapter.MyOnItemClickListener() {
             @Override
             public void MyOnItemClick(String nome) {
                 Toast toast = Toast.makeText(getContext(), nome, Toast.LENGTH_SHORT);
