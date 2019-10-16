@@ -1,4 +1,4 @@
-package f102312_d169482.ft.unicamp.br.projetosi700_a;
+package f102312_d169482.ft.unicamp.br.f102312_m203257;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("f102312_d169482.ft.unicamp.br.projetosi700_a", appContext.getPackageName());
+        assertEquals("f102312_d169482.ft.unicamp.br.f102312_m203257", appContext.getPackageName());
     }
 }

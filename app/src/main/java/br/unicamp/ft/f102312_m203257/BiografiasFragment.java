@@ -1,4 +1,4 @@
-package f102312_d169482.ft.unicamp.br.projetosi700_a;
+package br.unicamp.ft.f102312_m203257;
 
 
 import android.os.Bundle;
@@ -13,8 +13,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import f102312_d169482.ft.unicamp.br.projetosi700_a.alunos.Aluno;
-import f102312_d169482.ft.unicamp.br.projetosi700_a.alunos.Alunos;
+import br.unicamp.ft.f102312_m203257.alunos.Aluno;
+import br.unicamp.ft.f102312_m203257.alunos.Alunos;
 
 
 /**
