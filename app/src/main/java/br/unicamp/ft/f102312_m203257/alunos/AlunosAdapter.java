@@ -1,4 +1,4 @@
-package f102312_d169482.ft.unicamp.br.projetosi700_a.alunos;
+package br.unicamp.ft.f102312_m203257.alunos;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -11,8 +11,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import f102312_d169482.ft.unicamp.br.projetosi700_a.R;
-import f102312_d169482.ft.unicamp.br.projetosi700_a.alunos.Aluno;
+import br.unicamp.ft.f102312_m203257.R;
 
 public class AlunosAdapter extends RecyclerView.Adapter{
 

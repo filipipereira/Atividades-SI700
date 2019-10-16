@@ -1,4 +1,4 @@
-package f102312_d169482.ft.unicamp.br.projetosi700_a.puzzle;
+package br.unicamp.ft.f102312_m203257.puzzle;
 
 import java.util.ArrayList;
 import java.util.Collections;

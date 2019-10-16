@@ -1,4 +1,4 @@
-package f102312_d169482.ft.unicamp.br.projetosi700_a.alunos;
+package br.unicamp.ft.f102312_m203257.alunos;
 
 
 import android.os.Bundle;
@@ -13,9 +13,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import f102312_d169482.ft.unicamp.br.projetosi700_a.alunos.AlunosAdapter.MyOnLongItemClickListener;
-import f102312_d169482.ft.unicamp.br.projetosi700_a.R;
-import f102312_d169482.ft.unicamp.br.projetosi700_a.interfaces.OnBiografiaRequest;
+import br.unicamp.ft.f102312_m203257.alunos.AlunosAdapter.MyOnLongItemClickListener;
+import br.unicamp.ft.f102312_m203257.R;
+import br.unicamp.ft.f102312_m203257.interfaces.OnBiografiaRequest;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -1,10 +1,10 @@
-package f102312_d169482.ft.unicamp.br.projetosi700_a.puzzle;
+package br.unicamp.ft.f102312_m203257.puzzle;
 
 import android.widget.ImageView;
 
 import java.util.ArrayList;
 
-import f102312_d169482.ft.unicamp.br.projetosi700_a.R;
+import br.unicamp.ft.f102312_m203257.R;
 
 public abstract class AbstractPuzzle {
 

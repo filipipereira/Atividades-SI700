@@ -1,4 +1,4 @@
-package f102312_d169482.ft.unicamp.br.projetosi700_a;
+package br.unicamp.ft.f102312_m203257;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -18,10 +18,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import f102312_d169482.ft.unicamp.br.projetosi700_a.alunos.AlunosAdapter;
-import f102312_d169482.ft.unicamp.br.projetosi700_a.alunos.AlunosFragment;
-import f102312_d169482.ft.unicamp.br.projetosi700_a.interfaces.OnBiografiaRequest;
-import f102312_d169482.ft.unicamp.br.projetosi700_a.puzzle.PuzzleFragment;
+import br.unicamp.ft.f102312_m203257.alunos.AlunosAdapter;
+import br.unicamp.ft.f102312_m203257.alunos.AlunosFragment;
+import br.unicamp.ft.f102312_m203257.interfaces.OnBiografiaRequest;
+//import br.unicamp.ft.f102312_m203257.puzzle.PuzzleFragment;
 
 
 public class MainActivity extends AppCompatActivity
@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity
 
             Fragment fragJogo1 = fragmentManager.findFragmentByTag("jogo1");
             if(fragJogo1 == null){
-                fragJogo1 = new PuzzleFragment();
+                //fragJogo1 = new PuzzleFragment();
             }
             replaceFragment(fragJogo1,"jogo1");
             Toast.makeText(this, "Jogo1", Toast.LENGTH_LONG).show();

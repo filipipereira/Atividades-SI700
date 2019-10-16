@@ -1,4 +1,4 @@
-package f102312_d169482.ft.unicamp.br.projetosi700_a;
+package f102312_d169482.ft.unicamp.br.f102312_m203257;
 
 import org.junit.Test;
 

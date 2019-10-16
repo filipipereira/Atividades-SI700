@@ -1,4 +1,4 @@
-package f102312_d169482.ft.unicamp.br.projetosi700_a.alunos;
+package br.unicamp.ft.f102312_m203257.alunos;
 
 public class Aluno {
 
