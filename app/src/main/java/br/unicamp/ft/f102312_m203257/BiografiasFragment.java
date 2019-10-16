@@ -53,6 +53,7 @@ public class BiografiasFragment extends Fragment {
         if(view == null) {
             view = inflater.inflate(R.layout.fragment_biografias, container, false);
             alunos = new ArrayList(Arrays.asList(Alunos.alunos));
+            atualizaDados();
         }
         buttonProximoListener(view);
         buttonAnteriorListener(view);
