@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity
             NameFragment nameFragment = (NameFragment) fragmentManager.findFragmentByTag("name");
             if (nameFragment == null) {
                 nameFragment = new NameFragment();
-                nameFragment.setOnBiografiaRequest(                        new OnBiografiaRequest() {
+                nameFragment.setOnBiografiaRequest(new OnBiografiaRequest() {
                     @Override
                     public void onRequest(int position) {
                         Fragment fragBiografias = fragmentManager.findFragmentByTag("biografias");
