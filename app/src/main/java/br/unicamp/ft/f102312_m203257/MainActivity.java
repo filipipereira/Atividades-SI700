@@ -21,7 +21,7 @@ import android.widget.Toast;
 import br.unicamp.ft.f102312_m203257.alunos.AlunosAdapter;
 import br.unicamp.ft.f102312_m203257.alunos.AlunosFragment;
 import br.unicamp.ft.f102312_m203257.interfaces.OnBiografiaRequest;
-//import br.unicamp.ft.f102312_m203257.puzzle.PuzzleFragment;
+import br.unicamp.ft.f102312_m203257.puzzle.PuzzleFragment;
 
 
 public class MainActivity extends AppCompatActivity
@@ -159,14 +159,31 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.jogo1) {
 
-            Fragment fragJogo1 = fragmentManager.findFragmentByTag("jogo1");
-            if(fragJogo1 == null){
-                //fragJogo1 = new PuzzleFragment();
+            PuzzleFragment puzzleFragment = (PuzzleFragment) fragmentManager.findFragmentByTag("puzzle");
+            if (puzzleFragment == null) {
+                puzzleFragment = new PuzzleFragment();
             }
-            replaceFragment(fragJogo1,"jogo1");
+            replaceFragment(puzzleFragment, "puzzle");
+
             Toast.makeText(this, "Jogo1", Toast.LENGTH_LONG).show();
 
         } else if (id == R.id.jogo2) {
+            NameFragment nameFragment = (NameFragment) fragmentManager.findFragmentByTag("name");
+            if (nameFragment == null) {
+                nameFragment = new NameFragment();
+                nameFragment.setOnBiografiaRequest(                        new OnBiografiaRequest() {
+                    @Override
+                    public void onRequest(int position) {
+                        Fragment fragBiografias = fragmentManager.findFragmentByTag("biografias");
+                        if(fragBiografias == null){
+                            fragBiografias = new BiografiasFragment();
+                            ((BiografiasFragment) fragBiografias).setIndex(position);
+                        }
+                        replaceFragment(fragBiografias,"biografias");
+                    }
+                });
+            }
+            replaceFragment(nameFragment, "name");
             Toast.makeText(this, "Jogo2", Toast.LENGTH_LONG).show();
         }
 
