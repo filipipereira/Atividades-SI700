@@ -17,6 +17,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -92,6 +93,7 @@ public class NameFragment extends Fragment {
                 String nomeEscolhido = ((Button) v).getText().toString();
                 if (nomeEscolhido.equals( nomeCorreto) ){
                     txtFeedback.setText("Correto!!");
+                    onAtualizar(idCorreto,0);
                     new Handler().postDelayed(
                             new Runnable() {
                                 @Override
@@ -103,7 +105,7 @@ public class NameFragment extends Fragment {
                     txtFeedback.setText("Incorreto!!");
                     numTentativas--;
                     txtTentativas.setText("Tentativas: " + numTentativas);
-                    onAtualizar(positionAluno);
+                    onAtualizar(positionAluno, 1);
 
                     if (numTentativas == 0) {
                         txtFeedback.setText("Você Perdeu!!");
@@ -181,15 +183,23 @@ public class NameFragment extends Fragment {
         }
     }
 
-    public void onAtualizar(int id) {
+    public void onAtualizar(int id, int erro) {
 
-       ContentValues contentValues = new ContentValues();
-       contentValues.put("erro", 2);
-       String whereClause = "_id = ?";
-       String[] whereArgs = new String[]{Integer.toString(id)};
+        if(erro == 1){
+            sqLiteDatabase.execSQL("UPDATE alunos set Erro = IFNULL(Erro,0) + 1"
+                    +", TentativaGlobal = IFNULL(TentativaGlobal,0) + 1 "
+                    +"where _id = " + idCorreto);
+        }
+        else{
+            sqLiteDatabase.execSQL("UPDATE alunos set Acerto = IFNULL(Erro,0) + 1"
+                    +", TentativaGlobal = IFNULL(TentativaGlobal,0) + 1 "
+                    +"where _id = " + idCorreto);
+        }
 
-       sqLiteDatabase.execSQL("UPDATE alunos set Erro = IFNULL(Erro,0) + 1, TentativaGlobal = IFNULL(TentativaGlobal,0) + 1 where _id = " + idCorreto);
-
+        //ContentValues contentValues = new ContentValues();
+        //contentValues.put("erro", 2);
+        //String whereClause = "_id = ?";
+        //String[] whereArgs = new String[]{Integer.toString(id)};
        //sqLiteDatabase.update("tabela", contentValues, whereClause, whereArgs);
     }
 
@@ -200,6 +210,10 @@ public class NameFragment extends Fragment {
 
         if (cursor.moveToFirst()) {
             AlunoBanco alunoBanco = new AlunoBanco();
+
+            HashMap<String,Integer> mapAluno =  new HashMap<String, Integer>();
+            mapAluno.put(alunoBanco.getNome().split("")[0].toLowerCase(),alunoBanco.getId());
+
             do {
                 alunoBanco.setId(cursor.getInt(0));
                 alunoBanco.setNome(cursor.getString(1));
@@ -225,5 +239,7 @@ public class NameFragment extends Fragment {
             onInserir(listAlunoBanco);
         }
         cursor.close();
+
+
     }
 }
