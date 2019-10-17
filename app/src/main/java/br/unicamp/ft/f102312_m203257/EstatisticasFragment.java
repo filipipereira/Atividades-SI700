@@ -52,22 +52,50 @@ public class EstatisticasFragment extends Fragment {
 
     private void mostrarDados(){
 
-        String sql = "Select Nome, Erro from alunos ";
+        String strEscolhido = "Mais Escolhidx(s): \n";
+        String strMenosEscolhido = "Menos Escolhidx(s): \n";
+        String maisescolhido = "";
+        String menosescolhido = "";
+        String sql = "Select Nome, MAX(TentativaGlobal) from alunos group by Nome order by 2 desc limit 1";
         Cursor cursor = sqLiteDatabase.rawQuery(sql, null);
 
         if (cursor.moveToFirst()) {
-            String str = "";
             do {
-                int erro = cursor.getInt(1);
                 String texto = cursor.getString(0);
+                //int erro = cursor.getInt(1);
+                //int acertos = cursor.getInt(2);
+                int tentativas = cursor.getInt(1);
 
-                str = str + "Nome: "  + texto
-                        + ", Erros: " + erro + "\n";
+                maisescolhido = maisescolhido + "Nome: " + texto
+                        //+ ", Erros: " + erro
+                        //+ ", Acertos: " + acertos
+                        + ", Tentativas : " + tentativas
+                        + "\n\n";
 
             } while (cursor.moveToNext());
-            txtDados.setText(str);
         }
+
+          String  sqlmenos = "Select Nome, MIN(TentativaGlobal) from alunos group by Nome order by 2 limit 1";
+          Cursor cursormenos = sqLiteDatabase.rawQuery(sqlmenos, null);
+            if (cursormenos.moveToFirst()) {
+                do {
+                    String texto = cursormenos.getString(0);
+                    //int erro = cursor.getInt(1);
+                    //int acertos = cursor.getInt(2);
+                    int tentativas = cursormenos.getInt(1);
+
+                    menosescolhido = menosescolhido + "Nome: " + texto
+                            //+ ", Erros: " + erro
+                            //+ ", Acertos: " + acertos
+                            + ", Tentativas : " + tentativas
+                            + "\n\n";
+
+                } while (cursormenos.moveToNext());
+            }
+
+        txtDados.setText(strEscolhido + maisescolhido + strMenosEscolhido + menosescolhido);
         cursor.close();
+        cursormenos.close();;
     }
 
 }
