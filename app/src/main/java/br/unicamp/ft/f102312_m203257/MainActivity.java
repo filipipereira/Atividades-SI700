@@ -101,7 +101,12 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Fragment statsFragment = fragmentManager.findFragmentByTag("stats");
+            if(statsFragment == null){
+                statsFragment = new EstatisticasFragment();
+            }
+            replaceFragment(statsFragment,"stats");
+
         } else if(id == R.id.send){
         Fragment mailFragment = fragmentManager.findFragmentByTag("mail");
         if(mailFragment == null){
