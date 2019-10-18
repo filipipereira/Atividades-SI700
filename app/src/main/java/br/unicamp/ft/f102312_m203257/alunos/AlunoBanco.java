@@ -4,8 +4,7 @@ public class AlunoBanco {
 
     private int id;
     private String nome;
-    private int tentativaGlobal;
-    private int tentativaSelf;
+    private int tentativaEx;
     private int acerto;
     private int erro;
 
@@ -25,21 +24,14 @@ public class AlunoBanco {
         this.nome = nome;
     }
 
-    public int getTentativaGlobal() {
-        return tentativaGlobal;
+    public int getTentativaEx() {
+        return tentativaEx;
     }
 
-    public void setTentativaGlobal(int tentativaGlobal) {
-        this.tentativaGlobal = tentativaGlobal;
+    public void setTentativaEx(int tentativaEx) {
+        this.tentativaEx = tentativaEx;
     }
 
-    public int getTentativaSelf() {
-        return tentativaSelf;
-    }
-
-    public void setTentativaSelf(int tentativaSelf) {
-        this.tentativaSelf = tentativaSelf;
-    }
 
     public int getAcerto() {
         return acerto;
