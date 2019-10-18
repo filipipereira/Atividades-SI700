@@ -29,6 +29,7 @@ public class EstatisticasFragment extends Fragment {
 
     public void onStart() {
         super.onStart();
+        //getActivity().deleteDatabase("EXEMPLO");
         dbHelper = new DatabaseHelper(getActivity());
         sqLiteDatabase = dbHelper.getReadableDatabase();
         mostrarDados();
