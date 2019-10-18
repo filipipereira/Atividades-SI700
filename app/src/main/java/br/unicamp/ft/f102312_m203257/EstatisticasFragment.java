@@ -55,6 +55,7 @@ public class EstatisticasFragment extends Fragment {
         String sql = "Select Nome,tentativaEx,Acerto, Erro from alunos";
         Cursor cursor = sqLiteDatabase.rawQuery(sql, null);
 
+
         if (cursor.moveToFirst()) {
             String str = "";
             do {

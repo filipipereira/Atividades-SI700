@@ -184,17 +184,19 @@ public class NameFragment extends Fragment {
         txtTentativas.setText("Tentativas: " + numTentativas);
         txtFeedback.setText("");
 
-        ArrayList<String> arrayList = new ArrayList<String>();
+        ArrayList<String> arrayListCandidate = new ArrayList<String>();
         mapAluno = new HashMap<>();
+        for (Aluno a : Alunos.alunos){
+            mapAluno.put(a.getNome(),a.getFoto());
+        }
 
         for (int i = 0; i < 9; i++) {
             Aluno candidate = Alunos.alunos[(guess + i) % Alunos.alunos.length];
-            arrayList.add(candidate.getNome().split(" ")[0].toLowerCase());
-            mapAluno.put(candidate.getNome().split(" ")[0].toLowerCase(),candidate.getFoto());
+            arrayListCandidate.add(candidate.getNome().split(" ")[0].toLowerCase());
         }
-        Collections.shuffle(arrayList);
+        Collections.shuffle(arrayListCandidate);
         for (int i = 0; i < 9; i++) {
-            arrayListButton.get(i).setText(arrayList.get(i));
+            arrayListButton.get(i).setText(arrayListCandidate.get(i));
         }
     }
 
