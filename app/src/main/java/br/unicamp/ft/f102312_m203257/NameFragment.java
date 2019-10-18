@@ -129,11 +129,12 @@ public class NameFragment extends Fragment {
                                 new Runnable() {
                                     @Override
                                     public void run() {
-                                        if (onBiografiaRequest != null) {
-                                            onBiografiaRequest.onRequest(positionAluno);
-                                        }
+//                                        if (onBiografiaRequest != null) {
+//                                            onBiografiaRequest.onRequest(positionAluno);
+//                                        }
+                                        startGame();
                                     }
-                                }, 2000);
+                                }, 1500);
                     }
                 }
             }
