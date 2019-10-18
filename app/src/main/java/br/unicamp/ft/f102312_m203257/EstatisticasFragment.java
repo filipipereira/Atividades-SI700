@@ -53,7 +53,7 @@ public class EstatisticasFragment extends Fragment {
 
     private void mostrarDados(){
 
-        String str = "Aluno com mais erros:\n";
+        String str = "O aluno que o jogador menos sabe o nome:\n";
         String sql = "";
         sql = "Select Nome, MAX(Erro) from alunos group by Nome order by 2 desc limit 1";
         Cursor cursor = sqLiteDatabase.rawQuery(sql, null);
@@ -65,15 +65,13 @@ public class EstatisticasFragment extends Fragment {
                 String texto = cursor.getString(0);
                 int erro = cursor.getInt(1);
 
-
                 str = str + "Nome: " + texto
                         + ", Erros : " + erro
                         + "\n";
-
             } while (cursor.moveToNext());
         }
 
-        str += "\nPessoa que o Jogador mais escolheu:\n";
+        str += "\nO nome que mais fez o jogador errar:\n";
 
         sql = "Select Nome, MAX(tentativaEx) from alunos group by Nome order by 2 desc limit 1";
         cursor = sqLiteDatabase.rawQuery(sql, null);
@@ -85,7 +83,7 @@ public class EstatisticasFragment extends Fragment {
                 int erro = cursor.getInt(1);
 
 
-                str = str + "Nome: " + texto
+                str = str + "Nome: " + texto.split(" ")[0]
                         + ", Tentativas : " + erro
                         + "\n";
 
@@ -100,9 +98,7 @@ public class EstatisticasFragment extends Fragment {
 
             do {
                 int erro = cursor.getInt(0);
-
-
-                str = str + "\nPorcentagem de erros: " + erro + "%"
+                str = str + "\nPorcentagem de erros nas jogadas: " + erro + "%"
                         + "\n";
 
             } while (cursor.moveToNext());
