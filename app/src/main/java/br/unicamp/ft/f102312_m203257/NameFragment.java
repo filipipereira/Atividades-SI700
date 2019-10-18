@@ -239,7 +239,7 @@ public class NameFragment extends Fragment {
             for (Aluno a : listAlunos){
                 AlunoBanco alunoBanco = new AlunoBanco();
                 alunoBanco.setId(a.getFoto());
-                alunoBanco.setNome(a.getNome().split(" ")[0].toLowerCase());
+                alunoBanco.setNome(a.getNome().toLowerCase());
                 alunoBanco.setAcerto(0);
                 alunoBanco.setErro(0);
                 alunoBanco.setTentativaEx(0);
