@@ -29,6 +29,7 @@ public class EstatisticasFragment extends Fragment {
 
     public void onStart() {
         super.onStart();
+        //getActivity().deleteDatabase("EXEMPLO");
         dbHelper = new DatabaseHelper(getActivity());
         sqLiteDatabase = dbHelper.getReadableDatabase();
         mostrarDados();
@@ -52,27 +53,61 @@ public class EstatisticasFragment extends Fragment {
 
     private void mostrarDados(){
 
-        String sql = "Select Nome,tentativaEx,Acerto, Erro from alunos";
+        String str = "Aluno com mais erros:\n";
+        String sql = "";
+        sql = "Select Nome, MAX(Erro) from alunos group by Nome order by 2 desc limit 1";
         Cursor cursor = sqLiteDatabase.rawQuery(sql, null);
 
         if (cursor.moveToFirst()) {
-            String str = "";
+
             do {
                 String texto = cursor.getString(0);
-                int tentativas = cursor.getInt(1);
-                int acertos = cursor.getInt(2);
-                int erro = cursor.getInt(3);
+                int erro = cursor.getInt(1);
 
 
                 str = str + "Nome: " + texto
-                        + ", TentativaEx: " + tentativas
-                        + ", Acertos: " + acertos
                         + ", Erros : " + erro
                         + "\n";
 
             } while (cursor.moveToNext());
-            txtDados.setText(str);
         }
+
+        str += "\nPessoa que o Jogador mais escolheu:\n";
+
+        sql = "Select Nome, MAX(tentativaEx) from alunos group by Nome order by 2 desc limit 1";
+        cursor = sqLiteDatabase.rawQuery(sql, null);
+
+        if (cursor.moveToFirst()) {
+
+            do {
+                String texto = cursor.getString(0);
+                int erro = cursor.getInt(1);
+
+
+                str = str + "Nome: " + texto
+                        + ", Tentativas : " + erro
+                        + "\n";
+
+            } while (cursor.moveToNext());
+        }
+
+        sql = "Select  SUM(Erro * 100) / SUM(Erro + Acerto) from alunos";
+
+        cursor = sqLiteDatabase.rawQuery(sql, null);
+
+        if (cursor.moveToFirst()) {
+
+            do {
+                int erro = cursor.getInt(0);
+
+
+                str = str + "\nPorcentagem de erros: " + erro + "%"
+                        + "\n";
+
+            } while (cursor.moveToNext());
+
+        }
+        txtDados.setText(str);
         cursor.close();
     }
 
