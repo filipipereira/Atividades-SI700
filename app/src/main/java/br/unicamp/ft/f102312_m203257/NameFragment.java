@@ -133,7 +133,7 @@ public class NameFragment extends Fragment {
                                             onBiografiaRequest.onRequest(positionAluno);
                                         }
                                     }
-                                }, 1000);
+                                }, 1500);
                     }
                 }
             }
