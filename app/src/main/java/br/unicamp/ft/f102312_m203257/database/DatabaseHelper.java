@@ -21,7 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "Texto Text);");
 
         db.execSQL("CREATE TABLE alunos " +
-                "(_id INTEGER PRIMARY KEY, Nome Text, TentativaGlobal INTEGER, TentativaSelf INTEGER, Acerto INTEGER,  Erro INTEGER);");
+                "(_id INTEGER PRIMARY KEY, Nome Text, tentativaEx INTEGER, Acerto INTEGER,  Erro INTEGER);");
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

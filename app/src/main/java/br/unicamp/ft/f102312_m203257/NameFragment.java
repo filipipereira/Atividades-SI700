@@ -50,7 +50,7 @@ public class NameFragment extends Fragment {
     private SQLiteDatabase sqLiteDatabase;
     private List<Aluno> listAlunos = Arrays.asList(Alunos.alunos);
     private ArrayList<AlunoBanco> listAlunoBanco = new ArrayList<>();
-
+    private HashMap<String,Integer> mapAluno;
     private OnBiografiaRequest onBiografiaRequest;
 
     public void setOnBiografiaRequest(OnBiografiaRequest onBiografiaRequest) {
@@ -91,9 +91,24 @@ public class NameFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String nomeEscolhido = ((Button) v).getText().toString();
+                int id = 0;
+                int id_correto = 0;
+
+                for (String key : mapAluno.keySet()){
+                    if(key.split(" ")[0].toLowerCase().equals(nomeEscolhido)){
+                        id = mapAluno.get(key);
+                    }
+                }
+
+                for (String key : mapAluno.keySet()){
+                    if(key.split(" ")[0].toLowerCase().equals(nomeCorreto)){
+                        id_correto = mapAluno.get(key);
+                    }
+                }
+
                 if (nomeEscolhido.equals( nomeCorreto) ){
                     txtFeedback.setText("Correto!!");
-                    onAtualizar(idCorreto,0);
+                    onAtualizar(id_correto,id,0);
                     new Handler().postDelayed(
                             new Runnable() {
                                 @Override
@@ -105,7 +120,7 @@ public class NameFragment extends Fragment {
                     txtFeedback.setText("Incorreto!!");
                     numTentativas--;
                     txtTentativas.setText("Tentativas: " + numTentativas);
-                    onAtualizar(positionAluno, 1);
+                    onAtualizar(id_correto,id,1);
 
                     if (numTentativas == 0) {
                         txtFeedback.setText("Você Perdeu!!");
@@ -119,8 +134,6 @@ public class NameFragment extends Fragment {
                                         }
                                     }
                                 }, 2000);
-
-
                     }
                 }
             }
@@ -152,8 +165,7 @@ public class NameFragment extends Fragment {
             ContentValues contentValues = new ContentValues();
             contentValues.put("_id", alunoBanco.getId());
             contentValues.put("nome", alunoBanco.getNome());
-            contentValues.put("tentativaGlobal", alunoBanco.getTentativaGlobal());
-            contentValues.put("tentativaSelf", alunoBanco.getTentativaSelf());
+            contentValues.put("tentativaEx", alunoBanco.getTentativaEx());
             contentValues.put("acerto", alunoBanco.getAcerto());
             contentValues.put("erro", alunoBanco.getErro());
 
@@ -173,9 +185,12 @@ public class NameFragment extends Fragment {
         txtFeedback.setText("");
 
         ArrayList<String> arrayList = new ArrayList<String>();
+        mapAluno = new HashMap<>();
+
         for (int i = 0; i < 9; i++) {
             Aluno candidate = Alunos.alunos[(guess + i) % Alunos.alunos.length];
             arrayList.add(candidate.getNome().split(" ")[0].toLowerCase());
+            mapAluno.put(candidate.getNome().split(" ")[0].toLowerCase(),candidate.getFoto());
         }
         Collections.shuffle(arrayList);
         for (int i = 0; i < 9; i++) {
@@ -183,24 +198,20 @@ public class NameFragment extends Fragment {
         }
     }
 
-    public void onAtualizar(int id, int erro) {
+    public void onAtualizar(int id_correto ,int id, int erro) {
 
         if(erro == 1){
             sqLiteDatabase.execSQL("UPDATE alunos set Erro = IFNULL(Erro,0) + 1"
-                    +", TentativaGlobal = IFNULL(TentativaGlobal,0) + 1 "
-                    +"where _id = " + idCorreto);
+                    +" where _id = " + id_correto);
+
+            sqLiteDatabase.execSQL("UPDATE alunos set tentativaEx = IFNULL(tentativaEx,0) + 1"
+                    +" where _id = " + id);
+
         }
         else{
-            sqLiteDatabase.execSQL("UPDATE alunos set Acerto = IFNULL(Erro,0) + 1"
-                    +", TentativaGlobal = IFNULL(TentativaGlobal,0) + 1 "
-                    +"where _id = " + idCorreto);
+            sqLiteDatabase.execSQL("UPDATE alunos set Acerto = IFNULL(Acerto,0) + 1"
+                    +" where _id = " + id);
         }
-
-        //ContentValues contentValues = new ContentValues();
-        //contentValues.put("erro", 2);
-        //String whereClause = "_id = ?";
-        //String[] whereArgs = new String[]{Integer.toString(id)};
-       //sqLiteDatabase.update("tabela", contentValues, whereClause, whereArgs);
     }
 
     public void onSelecionar() {
@@ -211,16 +222,12 @@ public class NameFragment extends Fragment {
         if (cursor.moveToFirst()) {
             AlunoBanco alunoBanco = new AlunoBanco();
 
-            HashMap<String,Integer> mapAluno =  new HashMap<String, Integer>();
-            mapAluno.put(alunoBanco.getNome().split("")[0].toLowerCase(),alunoBanco.getId());
-
             do {
                 alunoBanco.setId(cursor.getInt(0));
                 alunoBanco.setNome(cursor.getString(1));
                 alunoBanco.setAcerto(cursor.getInt(2));
                 alunoBanco.setErro(cursor.getInt(3));
-                alunoBanco.setTentativaGlobal(cursor.getInt(4));
-                alunoBanco.setTentativaSelf(cursor.getInt(5));
+                alunoBanco.setTentativaEx(cursor.getInt(4));
                 listAlunoBanco.add(alunoBanco);
 
             } while (cursor.moveToNext());
@@ -232,14 +239,11 @@ public class NameFragment extends Fragment {
                 alunoBanco.setNome(a.getNome().split(" ")[0].toLowerCase());
                 alunoBanco.setAcerto(0);
                 alunoBanco.setErro(0);
-                alunoBanco.setTentativaGlobal(0);
-                alunoBanco.setTentativaSelf(0);
+                alunoBanco.setTentativaEx(0);
                 listAlunoBanco.add(alunoBanco);
             }
             onInserir(listAlunoBanco);
         }
         cursor.close();
-
-
     }
 }
