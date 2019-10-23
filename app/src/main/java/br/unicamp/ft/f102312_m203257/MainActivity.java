@@ -23,6 +23,7 @@ import br.unicamp.ft.f102312_m203257.alunos.AlunosFragment;
 import br.unicamp.ft.f102312_m203257.interfaces.OnBiografiaRequest;
 import br.unicamp.ft.f102312_m203257.internet.MyImageLoaderAsyncTask;
 import br.unicamp.ft.f102312_m203257.internet.MySimpleAsyncTask;
+import br.unicamp.ft.f102312_m203257.jogo3.Jogo3Fragment;
 import br.unicamp.ft.f102312_m203257.puzzle.PuzzleFragment;
 
 
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -195,6 +196,15 @@ public class MainActivity extends AppCompatActivity
             }
             replaceFragment(nameFragment, "name");
             Toast.makeText(this, "Jogo2", Toast.LENGTH_LONG).show();
+        }
+        else if (id == R.id.jogo3){
+            Fragment fragJogo3 = fragmentManager.findFragmentByTag("jogo3");
+            if (fragJogo3 == null){
+                fragJogo3 = new Jogo3Fragment();
+            }
+            replaceFragment(fragJogo3, "jogo3");
+
+            Toast.makeText(this, "Jogo3", Toast.LENGTH_LONG).show();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

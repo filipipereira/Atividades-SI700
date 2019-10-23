@@ -23,6 +23,8 @@
             <item
                 android:id="@+id/jogo2"
                 android:title="Jogo2" />
+            <item android:id="@+id/jogo3"
+                android:title="Jogo3"/>
         </menu>
     </item>
 
