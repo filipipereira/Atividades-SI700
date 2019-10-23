@@ -21,11 +21,16 @@ import android.widget.Toast;
 import br.unicamp.ft.f102312_m203257.alunos.AlunosAdapter;
 import br.unicamp.ft.f102312_m203257.alunos.AlunosFragment;
 import br.unicamp.ft.f102312_m203257.interfaces.OnBiografiaRequest;
+import br.unicamp.ft.f102312_m203257.internet.MyImageLoaderAsyncTask;
+import br.unicamp.ft.f102312_m203257.internet.MySimpleAsyncTask;
 import br.unicamp.ft.f102312_m203257.puzzle.PuzzleFragment;
 
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    MySimpleAsyncTask mySimpleAsyncTask;
+    MyImageLoaderAsyncTask myImageLoaderAsyncTask;
 
     FragmentManager fragmentManager;
     RecyclerView mRecyclerView;

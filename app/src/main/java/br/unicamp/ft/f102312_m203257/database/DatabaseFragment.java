@@ -3,7 +3,9 @@ package br.unicamp.ft.f102312_m203257.database;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import br.unicamp.ft.f102312_m203257.R;
@@ -90,6 +93,36 @@ public class DatabaseFragment extends Fragment {
                 }
         );
 
+        view.findViewById(R.id.btnATask1).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onInserirbtnATask1();
+                    }
+                }
+        );
+
+        view.findViewById(R.id.btnATask2).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onInserirbtnATask2();
+                    }
+                }
+        );
+
+        view.findViewById(R.id.btnATask3).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onInserirbtnATask3(
+                                sqLiteDatabase,
+                                edtId.getText().toString(),
+                                edtTexto.getText().toString()
+                        );
+                    }
+                }
+        );
 
         return view;
     }
@@ -113,7 +146,6 @@ public class DatabaseFragment extends Fragment {
         ContentValues contentValues = new ContentValues();
         contentValues.put("_id", id);
         contentValues.put("texto", texto);
-
 
         sqLiteDatabase.insert("tabela", null, contentValues);
     }
@@ -158,5 +190,119 @@ public class DatabaseFragment extends Fragment {
         }
         cursor.close();
 
+    }
+
+
+    public void onInserirbtnATask1() {
+        new InsertAsyncTask().execute();
+    }
+
+    public void onInserirbtnATask2() {
+        new InsertAsyncTaskV2().execute(
+                edtId.getText().toString(),
+                edtTexto.getText().toString()
+        );
+    }
+
+    public static void onInserirbtnATask3(final SQLiteDatabase sqLiteDatabase, String id, String text) {
+
+        new AsyncTask<String, Void, Void>() {
+            @Override
+            protected Void doInBackground(String... strings) {
+                String id       = (String)strings[0];
+                String texto = (String)strings[1];
+
+                ContentValues contentValues = new ContentValues();
+                contentValues.put("_id", id);
+                contentValues.put("texto", texto);
+
+                sqLiteDatabase.insert("tabela", null, contentValues);
+                return null;
+            }
+        }.execute(id, text);
+    }
+
+    class InsertAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        private ContentValues contentValues;
+        private int passo;
+
+        @Override
+        protected void onPreExecute(){
+            int id       = Integer.parseInt(edtId.getText().toString());
+            String texto = edtTexto.getText().toString();
+
+            contentValues = new ContentValues();
+            contentValues.put("_id", id);
+            contentValues.put("texto", texto);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            passo = 1;
+            publishProgress();
+
+            sqLiteDatabase.insert("tabela", null, contentValues);
+
+            passo = 2;
+            publishProgress();
+
+            return null;
+        }
+
+        @Override
+        protected  void onProgressUpdate(Void... voids){
+            Toast.makeText(getActivity(), "Passo = "+passo, Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        protected void onPostExecute(Void voidObject){
+            txtOutput.setText("Finished");
+        }
+    }
+
+
+    class InsertAsyncTaskV2 extends AsyncTask<String, Integer, Boolean> {
+        @Override
+        protected void onPreExecute(){
+
+        }
+
+        @Override
+        protected Boolean doInBackground(String... strings) {
+
+            publishProgress(1);
+
+            int id       = Integer.parseInt(strings[0]);
+            String texto = strings[1];
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("_id", id);
+            contentValues.put("texto", texto);
+
+            publishProgress(2);
+
+            try {
+                sqLiteDatabase.insertOrThrow("tabela", null, contentValues);
+                publishProgress(3);
+                return true;
+            } catch (SQLException exception){
+                return false;
+            }
+        }
+
+        @Override
+        protected  void onProgressUpdate(Integer... progress){
+            Toast.makeText(getContext(), "Passo = "+progress[0], Toast.LENGTH_SHORT).show();
+        }
+
+
+        @Override
+        protected void onPostExecute(Boolean result){
+            if (result) {
+                txtOutput.setText("Finished");
+            } else {
+                txtOutput.setText("Error Occurred");
+            }
+        }
     }
 }
