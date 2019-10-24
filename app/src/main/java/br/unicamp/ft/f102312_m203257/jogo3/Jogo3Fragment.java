@@ -17,18 +17,20 @@ import br.unicamp.ft.f102312_m203257.R;
  * A simple {@link Fragment} subclass.
  */
 public class Jogo3Fragment extends Fragment {
-    View view;
-    TextView textView;
-    String nomeCorreto;
-    RadioGroup radioGroup;
-    RadioButton bt1;
-    RadioButton bt2;
-    RadioButton bt3;
-    RadioButton bt4;
-    RadioButton bt5;
 
+    View view;
+    String nomeCorreto;
+    RadioButton btn1;
+    RadioButton btn2;
+    RadioButton btn3;
+    RadioButton btn4;
+    RadioButton btn5;
+    RadioGroup rg;
+    TextView textView;
+    TextView saida;
 
     public Jogo3Fragment() {
+        // Required empty public constructor
         nomeCorreto = "";
     }
 
@@ -36,19 +38,22 @@ public class Jogo3Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         if (view == null)
-            return inflater.inflate(R.layout.fragment_jogo3, container, false);
+            view = inflater.inflate(R.layout.fragment_jogo3, container, false);
 
-        textView = textView.findViewById(R.id.frase);
-        radioGroup = view.findViewById(R.id.jogo3radioGroup);
-        bt1 = view.findViewById(R.id.nome1);
-        bt2 = view.findViewById(R.id.nome2);
-        bt3 = view.findViewById(R.id.nome3);
-        bt4 = view.findViewById(R.id.nome4);
-        bt5 = view.findViewById(R.id.nome5);
+        textView = view.findViewById(R.id.frase);
+        rg = view.findViewById(R.id.jogo3radioGroup);
+        btn1 = view.findViewById(R.id.nome1);
+        btn2 = view.findViewById(R.id.nome2);
+        btn3 = view.findViewById(R.id.nome3);
+        btn4 = view.findViewById(R.id.nome4);
+        btn5 = view.findViewById(R.id.nome5);
 
         view.findViewById(R.id.btnAtualizar).setOnClickListener(
+                new gameItemClick(this));
 
+        view.findViewById(R.id.btnChutar).setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -56,53 +61,48 @@ public class Jogo3Fragment extends Fragment {
                     }
                 }
         );
+
         return view;
     }
 
     public void setCorrectName(String nome) {
         this.nomeCorreto = nome;
-
     }
 
-    public void setPhraseAndNames(String frase, String nome1, String nome2, String nome3, String nome4, String nome5) {
+    public void setPhraseAndNames(String frase, String n1, String n2, String n3, String n4, String n5) {
         textView.setText(frase);
-        bt1.setText(nome1);
-        bt2.setText(nome2);
-        bt3.setText(nome3);
-        bt4.setText(nome4);
-        bt5.setText(nome5);
+        btn1.setText(n1);
+        btn2.setText(n2);
+        btn3.setText(n3);
+        btn4.setText(n4);
+        btn5.setText(n5);
     }
 
     public void validateCorrect() {
-        int id = radioGroup.getCheckedRadioButtonId();
+        int id = rg.getCheckedRadioButtonId();
         if (((RadioButton) view.findViewById(id)).getText().equals(this.nomeCorreto)) {
             Toast.makeText(getContext(), "Acertou", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getContext(), "Errou", Toast.LENGTH_SHORT).show();
         }
-        radioGroup.clearCheck();
-
+        rg.clearCheck();
         new MyViaCepAsyncTask(this).execute();
     }
 
     public class gameItemClick implements View.OnClickListener {
-        Jogo3Fragment playerGame;
+        Jogo3Fragment pg;
         String chute;
 
-        public gameItemClick(Jogo3Fragment playerGame) {
-            new MyViaCepAsyncTask(playerGame).execute();
-            this.playerGame = playerGame;
+        public gameItemClick(Jogo3Fragment pg) {
+            new MyViaCepAsyncTask(pg).execute();
+            this.pg = pg;
         }
-
 
         @Override
         public void onClick(View v) {
-            if (playerGame != null) {
-                new MyViaCepAsyncTask(playerGame).execute();
-            }
+            if (pg != null)
+                new MyViaCepAsyncTask(pg).execute();
         }
+
     }
-
-
-
 }

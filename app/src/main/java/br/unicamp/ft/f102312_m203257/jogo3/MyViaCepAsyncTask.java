@@ -2,6 +2,10 @@ package br.unicamp.ft.f102312_m203257.jogo3;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,6 +16,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 
 /**
@@ -75,7 +80,7 @@ public class MyViaCepAsyncTask extends AsyncTask<String, Void, String> {
         // Via Cep
 
         try {
-          JSONObject jsonObject = new JSONObject(args);
+            JSONObject jsonObject = new JSONObject(args);
             ArrayList<String> lst = new ArrayList<String>();
             lst.add( jsonObject.getJSONArray("outros").get(0).toString());
             lst.add( jsonObject.getJSONArray("outros").get(1).toString());
